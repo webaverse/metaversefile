@@ -266,7 +266,7 @@ export default e => {
           const {instanceId} = app;
           const localPlayer = useLocalPlayer();
 
-          const rideBone = sitSpec.sitBone ? rideMesh.skeleton.bones.find(bone => bone.name === sitSpec.sitBone) : null;
+          const rideBone = sitSpec.sitBone ? rideMesh.skeleton.bones.find(bone => bone.name === sitSpec.sitBone).name : null;
           const sitAction = {
             type: 'sit',
             time: 0,
