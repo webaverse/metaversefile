@@ -26,9 +26,14 @@ export default {
     // console.log('load directory', oldId, id, /^https?:\/\//.test(id), /\/$/.test(id));
     if (/^https?:\/\//.test(id) && /\/$/.test(id)) {
       const metaversefilePath = id + '.metaversefile';
+      // console.log('check head', metaversefilePath);
+      const controller = new AbortController();
+      const {signal} = controller;
       const res = await fetch(metaversefilePath, {
-        method: 'HEAD',
+        // method: 'HEAD',
+        signal,
       });
+      controller.abort();
       if (res.ok) {
         const metaversefileStartUrl = await metaversefileLoader.resolveId(metaversefilePath, id);
         // console.log('got metaversefile', {metaversefilePath, metaversefileStartUrl, id: id + '.fakeFile'});
