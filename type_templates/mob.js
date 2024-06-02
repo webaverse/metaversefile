@@ -6,10 +6,10 @@ export default e => {
   const app = useApp();
   const mobManager = useMobManager();
 
-  mobManager.addMobApp(app, srcUrl);
+  //mobManager.addMobApp(app, srcUrl);
 
   useCleanup(() => {
-    mobManager.removeMobApp(app);
+    //mobManager.removeMobApp(app);
   });
 
   return app;
