@@ -14,30 +14,80 @@ Although this library does not provide game engine facilities, the API is design
 
 ---
 
-## Usage
+
+Totum is composed of two major parts:
+
+
+## API
+
+
+
+API part exposes `setAPI` a dynamic routine that can be used to set the methods which can be then used by loaded modules/apps. API is based on [Singleton Design Pattern](https://en.wikipedia.org/wiki/Singleton_pattern)
+
+
+## Usage `setAPI`
 
 ```js
 
-	let  object;
-	try {
-		object = await  metaversefileApi.load(url);
-	} catch (err) {
-		console.warn(err);
-	}
-	return  object;
+	metaversefile.setApi({
+		async load() =>{}
+
+		async import() =>{}
+
+		useApp() =>{}
+
+		.
+		.
+		.
+		can be anything
+
+	})
 
 ```
 
 ### Inputs 
-* url: {URL of the asset that can be downloadable by the screenshot system} **[Required]**
+* object with key/value pairs can be anything even an async/Promise based function.
 
 ### Returns 
-* Promise: 
+* Based on the methods used in setAPI
 
-### Output
-* Object of application
+### Example Usage
 
-### Supported Assets 
+
+#### Initialisation
+
+```js
+    
+    import metaversefile from 'metaversefile';
+
+    metaversefile.setApi({
+        helloWorld() =>{
+          return 'Hello World'
+        }
+    })
+
+```
+
+#### Usage in other modules
+
+
+```js
+    
+    import metaversefile from 'metaversefile';
+
+    metaversefile.helloWorld()
+
+```
+
+
+---
+
+## Rollup.JS
+
+Totum also provides a [Rollup.JS](https://rollupjs.org/) plugin located under `plugins/rollup.js` that provides transformation, loading and resolution based on the different module/asset loaders registered in totum.
+
+### Supported Loaders by totum/rollup.js 
+
 * `VRM`
 * `VOX`
 * `JS`
@@ -46,8 +96,10 @@ Although this library does not provide game engine facilities, the API is design
 * `HTML`
 * `GLB`
 * `GIF`
+* `Relative/Absolute URL`
 
-## Motivations
+
+### Motivations for loaders
 
 - A system which takes any URL (or token) and manifests it as an object in a 3D MMO
 - Totum transmutes data on the backend, serving composable little WASM+JS apps your browser can import()
