@@ -266,13 +266,11 @@ export default e => {
           const {instanceId} = app;
           const localPlayer = useLocalPlayer();
 
-          const rideBone = sitSpec.sitBone ? rideMesh.skeleton.bones.find(bone => bone.name === sitSpec.sitBone) : null;
           const sitAction = {
             type: 'sit',
             time: 0,
             animation: sitSpec.subtype,
-            controllingId: instanceId,
-            controllingBone: rideBone,
+            controllingId: instanceId
           };
           localPlayer.setControlAction(sitAction);
         }
